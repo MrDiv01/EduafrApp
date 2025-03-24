@@ -1,0 +1,56 @@
+﻿@using EEWF.Domain.DTOs.Education;
+@using EEWF.Domain.DTOs.Level
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@model EducationDto
+
+@section Css {
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+}
+
+
+<div class="d-flex justify-content-center align-items-center" style="width: 100%;">
+    <form asp-action="Create" asp-controller="Education" style="width: 60%;" enctype="multipart/form-data">
+        <h4>Education name</h4>
+        <input type="text" name="Name" asp-for="Name" class="form-control mb-3" placeholder="Education name">
+        <span style="color: red;">@Html.ValidationMessageFor(x => x.Name)</span>
+
+        <h4>Education description</h4>
+        <textarea type="text" name="Description" asp-for="Description" class="form-control mb-3" placeholder="Education description"></textarea>
+        <span style="color: red;">@Html.ValidationMessageFor(x => x.Description)</span>
+
+        <h4>Education image</h4>
+        <input class="form-control" name="ImageFile" asp-for="ImageFile" placeholder="Şəkil">
+        <span style="color: red;">@Html.ValidationMessageFor(x => x.ImageFile)</span>
+
+        @foreach (LevelDto data in ViewBag.Data)
+        {
+            <h4>Education Level</h4>
+            <select name="LevelId" asp-for="LevelId" class="form-select" aria-label="Default select example">
+                <option selected disabled>Select Education</option>
+                <option value="@data.LevelId">@data.Name</option>
+            </select>
+            <span style="color: red;">@Html.ValidationMessageFor(x => x.LevelId)</span>
+        }
+
+        <div class="d-flex justify-content-end mt-3">
+            <button type="submit" class="d-flex align-items-center" style=" background-color: green; padding: 10px 15px; color: white; border: 1px solid white; border-radius: 5px; font-weight: 600;"><i class='bx bx-save' style="margin-right: 7px;"></i>Save</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script src="~/admin/assets/js/scrollspyNav.js"></script>
+    <script src="~/admin/plugins/select2/select2.min.js"></script>
+    <script src="~/admin/plugins/select2/custom-select2.js"></script>
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script>
+        var ss = $(".basic").select2({
+            tags: true,
+        });
+    </script>
+            }

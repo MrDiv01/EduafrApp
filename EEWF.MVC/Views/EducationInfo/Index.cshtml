@@ -1,0 +1,29 @@
+﻿@using EEWF.Domain.DTOs.Education;
+@model List<EducationDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Courses</h5>
+            <h1>Our Popular Courses</h1>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                int number = 1;
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="rounded overflow-hidden mb-2">
+                        <img class="img-fluid" src="~/uploads/education/@item.Image" alt="">
+                        <div class="bg-secondary p-4">
+                            <a class="h5" asp-route-Id="@item.EducationId" asp-action="About">@item.Name</a>
+                        </div>
+                    </div>
+                </div>
+                number++;
+            }
+        </div>
+    </div>
+</div>

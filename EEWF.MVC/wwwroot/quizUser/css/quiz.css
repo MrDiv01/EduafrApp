@@ -1,0 +1,59 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+.quiz {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  h2 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .choices li {
+    margin-bottom: 10px;
+  }
+  
+  label {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  .choices li {
+    list-style-type: none;
+  }
+  
+  .choices li label {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none; /* Kenarlık yok */
+  }
+  
+  .choices li input[type="radio"]:checked + label {
+    background-color: #4CAF50;
+    color: white;
+  }

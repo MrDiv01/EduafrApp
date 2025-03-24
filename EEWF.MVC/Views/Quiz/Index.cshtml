@@ -1,0 +1,135 @@
+﻿@*@using EEWF.Domain.Entities;
+@model QuizForm
+@{
+    ViewData["Title"] = "Index";
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/wwwroot/quizUser/css/form.css">
+</head>
+<body>
+    <div class="form">
+        <h2>Formları Doldurun</h2>
+        <form method="post" asp-action="Index" asp-controller="Quiz" id="infoForm">
+            <div class="form-group">
+                <label asp-for="Name">Adınız:</label>
+                <input type="text" asp-for="Name">
+                <span style="color: red;">@Html.ValidationMessageFor(x => x.Name)</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SureName">Soyadınız:</label>
+                <input type="text" asp-for="SureName">
+                <span style="color: red;">@Html.ValidationMessageFor(x => x.SureName)</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email">E-posta Adresiniz:</label>
+                <input type="email" asp-for="Email">
+                <span style="color: red;">@Html.ValidationMessageFor(x => x.Email)</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber">Telefon Numaranız:</label>
+                <input type="tel" asp-for="PhoneNumber">
+                <span style="color: red;">@Html.ValidationMessageFor(x => x.PhoneNumber)</span>
+            </div>
+            <button  type="submit"><a>Quiz'e Git</a></button>
+        </form>
+    </div>
+<style>
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+
+
+        .quiz {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .choices li {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-left: 25px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+</style>
+</body>
+
+</html>*@

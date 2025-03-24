@@ -1,0 +1,44 @@
+﻿@using EEWF.Domain.DTOs.Graduate;
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@model GraduateDto
+
+
+<div class="d-flex justify-content-center align-items-center" style="width: 100%;">
+    <form asp-action="Create" asp-controller="Graduate" style="width: 60%;" enctype="multipart/form-data">
+        <h4>Graduate name</h4>
+        <input type="text" name="Name" asp-for="Name" class="form-control mb-3" placeholder="Graduate name">
+        <span style="color: red;">@Html.ValidationMessageFor(x => x.Name)</span>
+
+        <h4>Graduate degree</h4>
+        <input type="text" name="Degree" asp-for="Degree" class="form-control mb-3" placeholder="Graduate icon">
+        <span style="color: red;">@Html.ValidationMessageFor(x => x.Degree)</span>
+
+        <h4>Graduate comment</h4>
+        <textarea type="text" name="Comment" asp-for="Comment" class="form-control mb-3" placeholder="Comment"></textarea>
+        <span style="color: red;">@Html.ValidationMessageFor(x => x.Comment)</span>
+
+        <h4>Graduate image</h4>
+        <input class="form-control" name="ImageFile" asp-for="ImageFile" placeholder="Şəkil">
+        <span style="color: red;">@Html.ValidationMessageFor(x => x.ImageFile)</span>
+        <div class="d-flex justify-content-end mt-3">
+            <button type="submit" class="d-flex align-items-center" style=" background-color: green; padding: 10px 15px; color: white; border: 1px solid white; border-radius: 5px; font-weight: 600;"><i class='bx bx-save' style="margin-right: 7px;"></i>Save</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script src="~/admin/assets/js/scrollspyNav.js"></script>
+    <script src="~/admin/plugins/select2/select2.min.js"></script>
+    <script src="~/admin/plugins/select2/custom-select2.js"></script>
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script>
+        var ss = $(".basic").select2({
+            tags: true,
+        });
+    </script>
+        }

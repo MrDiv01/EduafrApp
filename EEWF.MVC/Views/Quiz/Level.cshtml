@@ -1,0 +1,71 @@
+﻿@using EEWF.Domain.DTOs.Level;
+@model List<LevelDto>
+@{
+    ViewData["Title"] = "Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seviye Seçimi</title>
+    <link rel="stylesheet" href="~/wwwroot/quizUser/css/style.css">
+</head>
+<body>
+    <div class="level-selection">
+        <h2>Quiz Seviye Seçimi</h2>
+        <div class="level-cards">
+            @foreach(LevelDto level in Model)
+            {
+            <a href="@level.URL"> <div class="level-card" data-level="1">@level.Name</div></a>
+            }
+        </div>
+    </div>
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f2f2f2;
+        }
+
+        .level-selection {
+            text-align: center;
+        }
+
+            .level-selection h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .level-selection .level-cards {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .level-selection .level-card {
+                display: block;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                padding: 10px;
+                margin-bottom: 10px;
+                cursor: pointer;
+                width: 200px;
+                border-radius: 4px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s ease;
+            }
+
+                .level-selection .level-card:hover {
+                    background-color: #f2f2f2;
+                }
+    </style>
+    <script src="~/wwwroot/quizUser/js/main.js"></script>
+</body>
+</html>

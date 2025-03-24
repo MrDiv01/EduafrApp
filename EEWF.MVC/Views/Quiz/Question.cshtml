@@ -1,0 +1,172 @@
+﻿@*@using EEWF.Domain.DTOs.Question;
+@using EEWF.Domain.Entities;
+@using EEWF.MVC.ViewModels;
+@model QuizViewModel
+@{
+    ViewData["Title"] = "Index";
+    int count = 0;
+    int variant = 0;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+
+        .quiz {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .choices-carousel .item {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+        .choices-carousel .item {
+            list-style-type: none;
+        }
+
+            .choices-carousel .item label {
+                display: inline-block;
+                margin-right: 10px;
+                padding: 5px 10px;
+                background-color: #f5f5f5;
+                border-radius: 5px;
+                cursor: pointer;
+                border: none;
+            }
+    </style>
+</head>
+<body>
+    <div class="owl-carousel">
+        @foreach (Question question in Model.questions)
+        {
+            count++;
+            <div class="quiz">
+                <h2>@count:@question.Query</h2>
+                <input type="hidden" data-id="@question.LevelId" id="inLevelId">
+                <ul class="choices">
+                    @foreach (var item in question.Variants)
+                    {
+                        variant++;
+                        <li>
+                            <input class="answer" type="radio" id="choice1_@item.Name" data-Point="@question.Point" data-id="@item.Id" data-questionId="@item.QuestionId" name="@count" value="@item.Name">
+                            <label for="@variant" class="choice-label">@item.Description</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+    <button class="Quiz-btn" id="submitQuizButton1" type="submit">Quiz'i Gönder</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var count = 0;
+            var correct = 0;
+            var incorrect = 0;
+            var selectedLi = 0
+            $(".owl-carousel").owlCarousel({
+                items: 1,
+                loop: false,
+                nav: true,
+                dots: false,
+            });
+
+            $("#submitQuizButton1").click(function () {
+                $('.answer:checked').each(function () {
+                    var selectQuestionPoint = $(this).attr("data-Point");
+                    var selectedAnswer = $(this).data("id");
+                    var selectedQuestion = $(this).attr("data-questionId");
+                    var selectedLevel = $("#inLevelId").attr("data-id");
+
+                    console.log(selectedLevel);
+
+                    $.ajax({
+                        url: "/Quiz/CheckQuizById",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            variantId: selectedAnswer,
+                            questionId: selectedQuestion,
+                            total: count
+                        },
+                        success: function (response) {
+                            if (response.status == 200) {
+                                count += Number(selectQuestionPoint);
+                                correct++;
+                                console.log(count);
+                                console.log("Success");
+
+                                // Yeni Ajax isteği
+
+                                $.ajax({
+                                    url: "/Quiz/UpdateQuizResult",
+                                    type: "post",
+                                    dataType: "json",
+                                    data: {
+                                        count: count,
+                                        levelId: selectedLevel,
+                                        correct: correct,
+                                        incorrect: incorrect
+                                    },
+                                    success: function (response) {
+                                        if (response.status == 200) {
+                                            console.log(response.message);
+                                        } else {
+                                            console.log("Error");
+                                        }
+                                    }
+                                });
+                            } else {
+                                incorrect++;
+                                console.log("Error");
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+*@
