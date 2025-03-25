@@ -1,0 +1,28 @@
+name: Deploy to Site4Now
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Build and Publish
+      run: |
+        dotnet restore
+        dotnet publish -c Release -o ./publish
+
+    - name: FTP Deploy to Site4Now
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: win6063.site4now.net
+        username: edufar-001
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./publish/
+        server-dir: /wwwroot/
